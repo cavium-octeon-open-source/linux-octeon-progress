@@ -203,6 +203,7 @@ f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
 
 61668052 MIPS: Quick debug helper to dump page table for an addres to the console.
 	--- do not send to upstream
+	reverted; see below (9d189a6)
 
 50752c2 MIPS: OCTEON: MSI support for cn68xxP2 and other MSI improvements.
 7fb12ef MIPS: Octeon: Correct typos and errors in msi-octeon.c
@@ -239,29 +240,84 @@ Nov 19
 ------
 
 8093f03 MIPS: OCTEON: Fix command queue unlock memory barriers.
+	+++
+
 9b1d01b MIPS: Octeon: Remove reference to cvmx_sysinfo_get()->cpu_clock_hz from cvmx.h
+	+++
+
 5d84506 MIPS: Octeon: Increase PCI_CONFIG_SPACE_DELAY
+	!!! pci.  not now
+
 3adc612 MIPS: Octeon: Add config option to disable ELF NOTE segments
+	??? some workaround for old bootloaders.  Probably is not required upsteram (?)
+
 ce35e6b MIPS: Octeon: Define NR_CPUS_DEFAULT_32 for Cavium Octeon.
+	+++
+
 404c2fc MIPS: Octeon: Only enable flash support if CONFIG_MTD is set.
+	!!! mtd; not now
+
 8963a8d MIPS: OCTEON: Add /proc/octeon_perf support.
+	!!! perf; not now
+
 b0c4419 MIPS: Octeon: Don't restore $ra in SAVE_SOME
+	??? outdated by merging the commit 
+	e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
+	(see below).  In upstream it is commit 8dfdd02a4c.  *BUT*
+
+	In cavium the remained lines are:
+		#ifdef CONFIG_CPU_CAVIUM_OCTEON
+				.set	mips64
+				pref	0, 0($28)	/* Prefetch the current pointer */
+				pref	0, PT_R31(sp)	/* Prefetch the $31(ra) */
+		#endif
+
+	In upstream:
+		#ifdef CONFIG_CPU_CAVIUM_OCTEON
+				.set    mips64
+				pref    0, 0($28)       /* Prefetch the current pointer */
+		#endif
+
+	I do not understand why we need to prefetch anything at all?
+
 af5f2fb MIPS: Add nudges to writes for bit unlocks.
+	+++
+
 d645168 perf: Try to disable detection of python
+	!!! perf;  not now;  probably never
+
 37d42aa MIPS: OCTEON: Sync up HOTPLUG_CPU with bootloader structures.
+	+++ Work in progress
+
 fbb44e9 watchdog: octeon-wdt: Add command-line option to disable.
 075df7a watchdog: octeon-wdt: Add support for cn68XX SOCs.
+	!!! watchdog: not now
+
 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
+	!!! perf;  not now
+
 239f7af MIPS: OCTEON: Quit using csrc-octeon-ptp.c as a clock source.
 b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 979c655 MIPS: Octeon: Remove setting of processor specific CVMCTL icache bits.
 301d177 MIPS: Octeon: Disable probing MDIO for Landbird NIC 10g cards.
+
 3f9d1da MIPS: OCTEON: Add cvmx-twsi API files.
+	--- reverted; see below (9ac3c45)
+
 11f4318 MIPS: OCTEON: netdev/ethernet Fix build error
+	!!! ethernet;  not now
+
 9ac3c45 Revert "MIPS: OCTEON: Add cvmx-twsi API files."
+	---
+
 9d189a6 Revert "MIPS: Quick debug helper to dump page table for an addres to the console."
+	---
+
 6e028c6 MIPS: OCTEON: Populate kernel memory from cvmx_bootmem named blocks.
+
 293dc19 Merge tag 'v3.10-rc5' into OCTEON-SDK-3.Y
+	---
+
 70a246f MIPS: OCTEON: Add framework for managing and reporting hardware status bit assertions.
 4e60836 MIPS: OCTEON: Add table driven handler for SoC error conditions.
 39ae96c i2c: i2c-octeon: Add  octeon_i2c_cvmx2i2c() function.
@@ -322,7 +378,10 @@ e4a0810 MIPS: OCTEON: Fix local_flush_icache_range
 e97b0a4 MIPS: OCTEON: octeon-lmc bug fixes
 5c5fa12 MIPS: Octeon: Move pulsing of MCD0 way earlym, define COP0_MDEBUG
 1bf635a MIPS:OCTEON: Sync up cvmx-cmd-queue.h
+
 e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
+	--- already merged as 8dfdd02a4c
+	BUT see comment for the commit b0c4419 above
 
 8b00f92 MIPS: OCTEON: Save/Restore wider multiply registers in OCTEON III CPUs
 	+++ (03_octeon_switch.01)
@@ -378,6 +437,7 @@ e80a73d MIPS:OCTEON: Sync up error interrupts from SE.
 46d72e6 MIPS: OCTEON: Use current_cpu_type() for CPU model check.
 4430d28 MIPS: OCTEON: Fix L1 dacache parity for OCTEON3
 5207ed2 MIPS: Move allocate_kscratch to cpu-probe.c and make it public.
+
 a94f89e mips/kvm: Improve code formatting in arch/mips/kvm/kvm_locore.S
 66f489d mips/kvm: Cleanup .push/.pop directives in kvm_locore.S
 ad32815 mips/kvm: Make kvm_locore.S 64-bit buildable/safe.
@@ -408,6 +468,8 @@ a7eb2d8 mips/kvm: Only use KVM_COALESCED_MMIO_PAGE_OFFSET with KVM_MIPS_TE
 2c4189a mips/kvm: Add MIPS VZ support.
 40974f1 mips/kvm: Enable MIPS VZ in Kconfig/Makefile
 513b8b4 mips/kvm: Allow for upto 8 KVM vcpus per vm.
+	>>>
+
 87802a9 MIPS: Discard .eh_frame sections in linker script.
 486aac7 MIPS: Move system level config items from CPU_CAVIUM_OCTEON to CAVIUM_OCTEON_SOC
 ae9bf7f MIPS: OCTEON: Force L1 Dcache and TLB parity errors for testing.
