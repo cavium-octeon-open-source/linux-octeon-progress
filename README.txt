@@ -1,5 +1,5 @@
 legend:
-	no tag -- no actions required
+	--- -- no actions required
 	!!! -- not now
 	??? -- should be investigated
 	+++ (branch name) -- cherry-picked preparing to upstream
@@ -14,7 +14,7 @@ branches:
 --------------------------------------------------------------------------------
 
 b3366c2a MIPS: OCTEON: Rename Kconfig CAVIUM_OCTEON_REFERENCE_BOARD to CAVIUM_OCTEON_SOC
-	already in the tree: 9ddebc46e70b434e485060f7c1b53c5b848a6c8c
+	--- already in the tree: 9ddebc46e70b434e485060f7c1b53c5b848a6c8c
 
 44bd450 MIPS: Octeon: Fast access thread pointer
 4acb845 MIPS: Octeon: CONFIG_FAST_ACCESS_TO_THREAD_POINTER on stackframe
@@ -26,30 +26,31 @@ b3366c2a MIPS: OCTEON: Rename Kconfig CAVIUM_OCTEON_REFERENCE_BOARD to CAVIUM_OC
 	!!! related to fast tls;  skipping
 
 6bcc665 MIPS: Add CPU identifiers for more OCTEON family members.
-	already in the three;  71a8b7d86c0dbdd1a278e91afcefc9de4f819ec5
+	--- already in the three;  71a8b7d86c0dbdd1a278e91afcefc9de4f819ec5
 
 9b09d60 MIPS: Probe for new OCTEON CPU/SoC types.
-	already in the tree: af04bb8578a47e7a7572cf1c22bb3309ca2380f7
+	--- already in the tree: af04bb8578a47e7a7572cf1c22bb3309ca2380f7
 
 37105af MIPS: Use r4k_wait for OCTEON3 CPUs.
-	already: 4122af0ab02a4b394e4703a3ac557d556701f4d9
+	--- already: 4122af0ab02a4b394e4703a3ac557d556701f4d9
 
 e37fa29 MIPS: Generate OCTEON3 TLB handlers with the same features as OCTEON2.
-	already: 4723b20a381ae488d845f3e041ef1dd71c6f40f8
+	--- already: 4723b20a381ae488d845f3e041ef1dd71c6f40f8
 
 877613e MIPS: OCTEON: Set L1 cache parameters for OCTEON3 CPUs.
-	already: 62597c60816967100243338421782469b831563d
+	--- already: 62597c60816967100243338421782469b831563d
 
 8663a2c MIPS: OCTEON: Remove vestiges of CONFIG_CAVIUM_DECODE_RSL
-	already: 02a49d5144c58a2b9826946934533a7a9f28c2ec
+	--- already: 02a49d5144c58a2b9826946934533a7a9f28c2ec
 
 ca7581b MIPS: OCTEON: Get rid of CONFIG_CAVIUM_OCTEON_HW_FIX_UNALIGNED
-	already: 0ec315121c8391a14bbeb5eecc146c470dfc00cb
+	--- already: 0ec315121c8391a14bbeb5eecc146c470dfc00cb
 
 92818288 MIPS: Allow r4k_switch.S to be included by octeon_switch.S
-	already included in: a36d8225bceba4b7be47ade34d175945f85cffbc
+	--- already included in: a36d8225bceba4b7be47ade34d175945f85cffbc
 
 627a134 MIPS: Override assembler ISA for kernel FPU instructions.
+	---
 	1st chunk: already included in: a36d8225bceba4b7be47ade34d175945f85cffbc
 	2nd chunk: eilminated in: dab75dd956522ce19403c108f659ea9b339f2559
 	3rd chunk: eliminated in: 3351047f01fe012abbb585b400d1c51b57ed011d
@@ -57,19 +58,19 @@ ca7581b MIPS: OCTEON: Get rid of CONFIG_CAVIUM_OCTEON_HW_FIX_UNALIGNED
 	5th chunk: same
 
 6057b89 MIPS: Declare emulate_load_store_microMIPS as a static function.
-	already: 74338805ec6869594d583535f941cb478c94dd73
+	--- already: 74338805ec6869594d583535f941cb478c94dd73
 
 7f46e4c6 MIPS: Don't try to decode microMIPS branch instructions where they cannot exist.
-	already: fe6d29095d4370bed3a525404c45bbd6aa7c191b
+	--- already: fe6d29095d4370bed3a525404c45bbd6aa7c191b
 
 32f863a MIPS: Only set cpu_has_mmips if SYS_SUPPORTS_MICROMIPS
-	already: 3ddc14add5e6341cf8ef4058c34c67ba7fd15317
+	--- already: 3ddc14add5e6341cf8ef4058c34c67ba7fd15317
 
 63c9556 MIPS: OCTEON: Improve _machine_halt implementation.
-	already: 38c3c0f6733bec1d1841915a9a82d2c324362686
+	--- already: 38c3c0f6733bec1d1841915a9a82d2c324362686
 
 f3a0f87 MIPS: OCTEON: Enable use of FPU.
-	already included in: a36d8225bceba4b7be47ade34d175945f85cffbc
+	--- already included in: a36d8225bceba4b7be47ade34d175945f85cffbc
 
 f3466d8 MIPS: Define cpu_has_octeon2_isa cpu features.
 c809dfb MIPS: Use Octeon2 atomic instructions when cpu_has_octeon2_isa.
@@ -119,7 +120,7 @@ a0c4950 MIPS: OCTEON: Add PTP clocksource.
 	(see above), should be merged with it.
 
 08b2dc6 MIPS: Make Cavium as the default configuration.
-	should not go to upstream at all
+	--- should not go to upstream at all
 
 02c9ce6 MIPS: Remove unneeded #ifdef __KERNEL__ from asm/processor.h
 	+++ (02_octeon_patches.03)
@@ -131,17 +132,17 @@ f92a0f2 MIPS: If huge pages are enabled, align STACK_TOP to a huge page boundry.
 	+++ (02_octeon_patches.03)
 
 37ecc17 MIPS: Implement get_cycles() for CONFIG_CEVT_R4K_LIB
-	Should not go to upstream because 
+	--- Should not go to upstream because 
 	- get_cycles() was rewritten by d617f9e9b80632e5206f0a88b7b25ef39bd2612b
 	and d617f9e9b80632e5206f0a88b7b25ef39bd2612b checks the existence of the 
 	timer by some much more elaborate means
 	- there is no config option CEVT_R4K_LIB in upstream nor cavium kernel
 
 246a50e MIPS: OCTEON: Probe device tree for "cavium,octeon-5750-usbn"
-	already: included in d617f9e9b80632e5206f0a88b7b25ef39bd2612b
+	--- already: included in d617f9e9b80632e5206f0a88b7b25ef39bd2612b
 
 d89de89 MIPS: OCTEON: Re-introduced xkphys_read, xkphys_write sysmips(2) calls
-	Implements some system calls.  Config options for them were introduced in
+	--- Implements some system calls.  Config options for them were introduced in
 	520b3e0 Add octeon2 build and configuration option
 	Do not send to upstream.  New system calls probably will not be accepted.
 
@@ -152,7 +153,7 @@ c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
 	+++ (02_octeon_patches.03)
 
 2e8d90e MIPS: OCTEON: Print address of passed device tree.
-	do not send upstream
+	--- do not send upstream
 
 2944b9d MIPS: OCTEON: Add parameter to disable PCI on command line.
 	!!!
@@ -161,7 +162,7 @@ c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
 	+++ (02_octeon_patches.03)
 
 b1d9a98 MIPS: Change sparsemem physical memory bits from 35 to 38
-	it has been increased to 48 in c46173183657bbdbe0d54a981c28807581648422
+	--- it has been increased to 48 in c46173183657bbdbe0d54a981c28807581648422
 	for Loongson arch
 
 5043204 MIPS: OCTEON: Add ability to used an initrd from a named memory block.
@@ -201,7 +202,7 @@ f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
 	!!! some work on conflict resolution required;  not now
 
 61668052 MIPS: Quick debug helper to dump page table for an addres to the console.
-	do not send to upstream
+	--- do not send to upstream
 
 50752c2 MIPS: OCTEON: MSI support for cn68xxP2 and other MSI improvements.
 7fb12ef MIPS: Octeon: Correct typos and errors in msi-octeon.c
@@ -213,7 +214,7 @@ ebf87be MIPS: Align stack top for CONFIG_MIPS_HUGE_TLB_SUPPORT.
 	+++ (02_octeon_patches.03)
 
 d73afc7 MIPS: Fix compile warning in dump_tlb
-	fixes a typo introduced in 61668052 (see above) which is not 
+	--- fixes a typo introduced in 61668052 (see above) which is not 
 	to be sent upstream
 
 cc43ce2 RapidIO: Add interface to memory map rapidio device memory.
@@ -232,6 +233,10 @@ fb0ee08 mtd: nand_ids:  Add a couple of device identifiers to the table.
 	!!! drivers;  not now
 
 9d6af2f Merge branch 'OCTEON-SDK-3.Y' of ssh://cagit1.caveonetworks.com/repo/git/linux/linux-octeon-sdk into OCTEON-SDK-3.Y
+	---
+
+Nov 19
+------
 
 8093f03 MIPS: OCTEON: Fix command queue unlock memory barriers.
 9b1d01b MIPS: Octeon: Remove reference to cvmx_sysinfo_get()->cpu_clock_hz from cvmx.h
