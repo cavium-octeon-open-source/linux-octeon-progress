@@ -1,3 +1,5 @@
+git log --oneline --reverse v3.10.14...HEAD
+
 legend:
 	--- -- no actions required
 	!!! -- not now
@@ -164,9 +166,11 @@ c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
 b1d9a98 MIPS: Change sparsemem physical memory bits from 35 to 38
 	--- it has been increased to 48 in c46173183657bbdbe0d54a981c28807581648422
 	for Loongson arch
+	David: This is problematical.  For now it can be left as is, but I added a patch to our SDK to reduce it based on the sub-architecture.  The large value of 48 causes a 16MB block of .bss to be allocated.  This is a big waste for small memory systems, and takes a very long time to initialize on the simulator. 
+	Aleksey: Ok, I saw your next patch and going to pick it later.
 
 5043204 MIPS: OCTEON: Add ability to used an initrd from a named memory block.
-	!!! needs porting.  Not now (?)
+	+++ (with conflicts)
 
 abed31e MIPS: OCTEON: Rearrange CVMSEG slots.
 	!!! related to fast tls;  (?) skipping
@@ -261,7 +265,7 @@ ce35e6b MIPS: Octeon: Define NR_CPUS_DEFAULT_32 for Cavium Octeon.
 	!!! perf; not now
 
 b0c4419 MIPS: Octeon: Don't restore $ra in SAVE_SOME
-	??? outdated by merging the commit 
+	--- outdated by merging the commit 
 	e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
 	(see below).  In upstream it is commit 8dfdd02a4c.  *BUT*
 
@@ -280,14 +284,26 @@ b0c4419 MIPS: Octeon: Don't restore $ra in SAVE_SOME
 
 	I do not understand why we need to prefetch anything at all?
 
+	David: It is a performance optimization.  I don't know if the prefetches actually help that much, but they don't hurt.
+	The idea is that whatever the exception handler will be calling is likely to need to read things from the thread_info, or the PT_REGS, so we prefetch them into the L1 cache. 
+
+	OK, let's leave as it is in upstream
+
 af5f2fb MIPS: Add nudges to writes for bit unlocks.
 	+++
 
 d645168 perf: Try to disable detection of python
-	!!! perf;  not now;  probably never
+	--- perf;  not now;  probably never
+	reverted by 4a73415 (see below)
 
 37d42aa MIPS: OCTEON: Sync up HOTPLUG_CPU with bootloader structures.
-	+++ Work in progress
+	+++ (with conflicts)
+
+	David: We have made big changes to how HOTPLUG_CPU works, Don't make small adjustments here, just go directly to the current implementation.
+	This also effects... (two patches below) watchdog.  Both the HOTPLUG_CPU and watchdog use the NMI facilities of OCTEON.
+
+	For now I am going to just fix and pick this patch.  I will look at what should be done next (probably this patch should be thrown out), 
+	but without it the next patches will more likely be rejected
 
 fbb44e9 watchdog: octeon-wdt: Add command-line option to disable.
 075df7a watchdog: octeon-wdt: Add support for cn68XX SOCs.
@@ -296,10 +312,23 @@ fbb44e9 watchdog: octeon-wdt: Add command-line option to disable.
 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
 	!!! perf;  not now
 
+Nov 20
+------
+
 239f7af MIPS: OCTEON: Quit using csrc-octeon-ptp.c as a clock source.
+	--- see also:
+	8d4aca2 MIPS: OCTEON: Add utility helper function octeon_read_ptp_csr()
+	a0c4950 MIPS: OCTEON: Add PTP clocksource.
+	This patch is basically disables the clock that what was introduced in a0c4950
+
 b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
+	+++
+
 979c655 MIPS: Octeon: Remove setting of processor specific CVMCTL icache bits.
+	+++
+
 301d177 MIPS: Octeon: Disable probing MDIO for Landbird NIC 10g cards.
+	+++
 
 3f9d1da MIPS: OCTEON: Add cvmx-twsi API files.
 	--- reverted; see below (9ac3c45)
@@ -314,19 +343,27 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 	---
 
 6e028c6 MIPS: OCTEON: Populate kernel memory from cvmx_bootmem named blocks.
+	+++ (with conflicts)
 
 293dc19 Merge tag 'v3.10-rc5' into OCTEON-SDK-3.Y
 	---
 
 70a246f MIPS: OCTEON: Add framework for managing and reporting hardware status bit assertions.
 4e60836 MIPS: OCTEON: Add table driven handler for SoC error conditions.
+	!!! not now
+
 39ae96c i2c: i2c-octeon: Add  octeon_i2c_cvmx2i2c() function.
+	!!! not now
+
 c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
+
 de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
 436c461 MIPS: OCTEON: Removed unused CAVIUM_DECODE_RSL related files.
 4c68051 MIPS/EDAC: Cavium: Fix compilation errors.
 f0244a3 MIPS: OCTEON: Add missing octeon-ethernet-user.h
+
 1178699 netdev: octeon-ethernet: Remove incorrect __init annotation.
 2e11c90 ata: Use WARN instead of BUG in pata_octeon_cf.
 0b78298 usb: Add host driver for cn3XXX and cn5XXX SoCs
@@ -334,8 +371,11 @@ f0244a3 MIPS: OCTEON: Add missing octeon-ethernet-user.h
 d23ae68b MIPS/OCTEON: Initialize QLM JTAG.
 6c6f0e7 MIPS/OCTEON: Override default address space layout.
 c06b1ca MIPS: OCTEON: Add support for running kernel in mapped address space.
+
 4208c04 Fix compile warning in mm/page_alloc.c
 dd62fd0 Revert "Fix compile warning in mm/page_alloc.c"
+	--
+
 2cdea76 MIPS: OCTEON: Use virt_to_phys() and phys_to_virt() in octeon/setup.c
 93257e1 smp.h: Use local_irq_{save,restore}() in !SMP version of on_each_cpu().
 0d34967 MIPS: OCTEON: Only use SAA instructions for CONFIG_CAVIUM_OCTEON2
@@ -348,8 +388,11 @@ a417eac MIPS: Octeon: adopt hotplug code to new struct cvmx_coremask
 6365c1d MIPS/edac/OCTEON: Hook up Write Buffer parity errors to EDAC.
 2f212cb MIPS/edac/OCTEON: Hook up Write Buffer parity errors to EDAC.
 c75cc7c MIPS: Add board_mcheck_handler, show process state on machine check exception.
+
 0e70b19 Revert "smp.h: Use local_irq_{save,restore}() in !SMP version of on_each_cpu()."
 8796207 smp.h: Use local_irq_{save,restore}() in !SMP version of on_each_cpu().
+	---
+
 f229f51 MIPS/OCTEON: Add OCTEON II TLB parity error handling
 2b5588a MIPS: Octeon: Change kuid_t references to __kuid_val()
 109d82a MIPS: OCTEON: Add vmlinux* to .gitignore.
@@ -387,8 +430,11 @@ e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
 	+++ (03_octeon_switch.01)
 
 c4edf70 MIPS: OCTEON: Reword octeon_pci_console messages.
+
 5fc0aff MIPS: OCTEON: Sync up debug stub files.
 95d5f48 Revert "MIPS: OCTEON: Sync up debug stub files."
+	---
+
 a9c987b MIPS:OCTEON: More OCTEONIII support
 0a194ae MIPS: OCTEON: Fix model check for setting clock rate.
 0c040e0 MIPS: Octeon: Add Octeon3 cache handling
@@ -415,7 +461,11 @@ b07e85e mips/ftrace: Fix function tracing return address to match
 131c3ca2 Merge tag 'v3.10.1' into OCTEON-SDK-3.Y
 1f507be MIPS: Cleanup flags in syscall flags handlers.
 9d98053 MIPS: Implement HAVE_CONTEXT_TRACKING.
+
 4a73415 Revert "perf: Try to disable detection of python"
+	---
+
+
 895f4c4 Revert "MIPS: Make Cavium as the default configuration."
 8fcdb8b MIPS: OCTEON: Increase the number of irqs for !PCI case
 4d4ab15 serial: 8250_dw: Mask register value in dw8250_serial_outq.
@@ -473,14 +523,22 @@ a7eb2d8 mips/kvm: Only use KVM_COALESCED_MMIO_PAGE_OFFSET with KVM_MIPS_TE
 87802a9 MIPS: Discard .eh_frame sections in linker script.
 486aac7 MIPS: Move system level config items from CPU_CAVIUM_OCTEON to CAVIUM_OCTEON_SOC
 ae9bf7f MIPS: OCTEON: Force L1 Dcache and TLB parity errors for testing.
+
 b7f316e netdev: octeon-ethernet: Common code for changing MTU.
 cca7ab0 Revert "netdev: octeon-ethernet: Common code for changing MTU."
+	---
+
 b6b38a6 MIPS: OCTEON: Seperate SoC and CPU related config items
 e778c04 MIPS: Don't build fast TLB refill handler with 32-bit kernels.
 f4c7fff netdev: octeon-ethernet: Remove unused macros.
 e4b3856 smp.c: Quit unconditionally enabling irqs in on_each_cpu_mask().
+
 e13672f MIPS: OCTEON: Get rid of special SMP_ICACHE_FLUSH IPI message.
+	--- reverted by 6ab7748
+
 69b8f32 Merge branch 'OCTEON-SDK-3.Y' of ssh://cagit1.caveonetworks.com/repo/git/linux/linux-octeon-sdk into OCTEON-SDK-3.Y
+	---
+
 7a9936a netdev: octeon-ethernet: Redo common code for changing MTU.
 3795998 netdev: octeon-ethernet: Add AGL support.
 eb4df20 MIPS:  Add hypervisor call API for use by MIPS VZ guests.
@@ -497,7 +555,10 @@ d26fba7 MIPS: Add new function local_flush_icache_all()
 f44ecee MIPS: Only flush local ICache in get_new_asid().
 29a4adf MIPS: OCTEON: Use correct L2C CSR for cache locking.
 2fad0da MIPS/EDAC: Cavium: Updated L2C error checking for OCTEON3.
+
 6ab7748 Revert "MIPS: OCTEON: Get rid of special SMP_ICACHE_FLUSH IPI message."
+	--- reverts e13672f
+
 0bf4545 MIPS: OCTEON: Simplify/cleanup octeon_send_ipi_mask.
 1841d29 MIPS: Handle OCTEON BBIT instructions in FPU emulator.
 57a4c82 MIPS: OCTEON: Handle cn78XX counters in csrc-octeon.c
