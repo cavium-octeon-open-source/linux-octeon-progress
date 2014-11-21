@@ -1,3 +1,4 @@
+#
 # git log --oneline --reverse v3.10.14...HEAD
 #
 # IMPORTANT: KEEP THE LIST ORDERED
@@ -17,10 +18,12 @@
 # 
 # branches:
 # 
-# - 03_octeon_switch.01 -- bringing the upstream code from upstream
+# - octeon_serial.01 -- patch to run on simulator. submitted
+#
+# - octeon_switch.01 -- bringing the upstream code from upstream
 # 	octeon_switch.S in correspondence with OCTEON-SDK-3.Y
 #
-# - 02_octeon_patches.03 -- pulling patches from cavium linux one by one
+# - octeon_patches.06 -- pulling patches from cavium linux one by one
 # 
 # --------------------------------------------------------------------------------
 
@@ -133,7 +136,7 @@ bea86de MIPS: OCTEON: Add sysfs support for CPU power throttling.
 a0c4950 MIPS: OCTEON: Add PTP clocksource.
 	??? basicly driver, but defines OCTEON_CNF7XXX in 
 	arch/mips/include/asm/octeon/octeon-model.h
-	that should probably go elsewhere (first) requires 
+	that is merged in c415bff
 	8d4aca2 MIPS: OCTEON: Add utility helper function octeon_read_ptp_csr()
 	(see above), should be merged with it.
 
@@ -142,12 +145,12 @@ a0c4950 MIPS: OCTEON: Add PTP clocksource.
 	#REVERTED 895f4c49b4b5c3ed4a432b015936a6df09a87d57
 
 02c9ce6 MIPS: Remove unneeded #ifdef __KERNEL__ from asm/processor.h
-	+++ (02_octeon_patches.03)
+	+++
 
 # Nov 17
 
 f92a0f2 MIPS: If huge pages are enabled, align STACK_TOP to a huge page boundry.
-	+++ (02_octeon_patches.03)
+	+++
 
 37ecc17 MIPS: Implement get_cycles() for CONFIG_CEVT_R4K_LIB
 	--- Should not go to upstream because 
@@ -165,10 +168,8 @@ d89de89 MIPS: OCTEON: Re-introduced xkphys_read, xkphys_write sysmips(2) calls
 	Do not send to upstream.  New system calls probably will not be accepted.
 
 80c2660 MIPS: Octeon: Implement the core-16057 workaround
-	+++ (02_octeon_patches.03)
-
 c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
-	+++ (02_octeon_patches.03)
+	+++
 
 2e8d90e MIPS: OCTEON: Print address of passed device tree.
 	--- do not send upstream
@@ -177,7 +178,7 @@ c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
 	!!!
 
 4e03dca MIPS: OCTEON: Change load address to waste less memory.
-	+++ (02_octeon_patches.03)
+	+++
 
 b1d9a98 MIPS: Change sparsemem physical memory bits from 35 to 38
 	--- it has been increased to 48 in c46173183657bbdbe0d54a981c28807581648422
@@ -197,6 +198,9 @@ f3dbda3 MIPS: OCTEON: Add little-endian support to asm/octeon/octeon.h
 8f2dd4e MIPS: OCTEON Handle bootloader structures in little-endian mode.
 fa86eea MIPS: OCTEON: Add mach-cavium-octeon/mangle-port.h
 9734af5 MIPS: OCTEON: Make cvmx-bootmem and packet I/O functions work Little Endian.
+	+++
+	these basically were merged to make merging the first large S. E. patch easy
+
 fd9bc4f netdev: octeon-ethernet: Add support for Little Endian kernels.
 bb9fae7 MIPS: OCTEON: Make PCIe work with Little Endian kernel.
 658e2b4 MIPS: OCTEON: Enable little endian kernel.
@@ -206,19 +210,19 @@ f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
 	!!! drivers;  not now
 
 3f9ce70 MIPS: Octeon: Implement DCache errata workaround for all CN6XXX
-	+++ (02_octeon_patches.03)
+	+++
 
 5304368 MIPS: OCTEON: Remove unneeded alignment specifiers from struct thread_struct.
-	+++ (02_octeon_patches.03) (with conflict resolution)
+	+++ (with conflict resolution)
 
 5048ef6 MIPS: OCTEON: Handle userspace access to CVMSEG
 	!!! needs conflict resolution;  not now
 
 4306373 MIPS: Octeon: Quit using all the mailbox bits.
-	+++ (02_octeon_patches.03) (with conflict resolution)
+	+++ (with conflict resolution)
 
 87d2ec7 MIPS: Octeon: Add simple Octeon IPI infrastructure
-	+++ (02_octeon_patches.03)
+	+++
 
 253087c MIPS: Fix warning spew on CONFIG_PREEMPT_DEBUG and ptrace watch register use.
 	!!! some work on conflict resolution required;  not now
@@ -234,7 +238,7 @@ c1b247e MIPS: OCTEON/MSI: Don't compile unused functions when !CONFIG_SMP
 	!!! drivers;  not now
 
 ebf87be MIPS: Align stack top for CONFIG_MIPS_HUGE_TLB_SUPPORT.
-	+++ (02_octeon_patches.03)
+	+++
 
 d73afc7 MIPS: Fix compile warning in dump_tlb
 	--- fixes a typo introduced in 61668052 (see above) which is not 
@@ -247,7 +251,7 @@ f25ef36 MIPS: OCTEON: Add support for SRIO interrupt sources.
 	rapidio/SRIO patches for later. 
 
 958bf54 MIPS: Cleanup HUGETLB_PAGE config option
-	+++ (02_octeon_patches.03)
+	+++
 	But I am not sure about this.  And commit message of this patch should be 
 	improved.
 
@@ -329,6 +333,7 @@ fbb44e9 watchdog: octeon-wdt: Add command-line option to disable.
 
 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
 	!!! perf;  not now
+	should have picked: contaminated with c415bff
 
 # Nov 20
 
@@ -368,7 +373,7 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 293dc19 Merge tag 'v3.10-rc5' into OCTEON-SDK-3.Y
 	---
 	#MERGE
-	
+
 70a246f MIPS: OCTEON: Add framework for managing and reporting hardware status bit assertions.
 4e60836 MIPS: OCTEON: Add table driven handler for SoC error conditions.
 	!!! not now
@@ -379,8 +384,10 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 # Nov 21
 
 c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+	+++
 	#SE
-
+	see also 8083a9b
+	see also a0c4950
 
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
 
@@ -474,7 +481,7 @@ e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
 	BUT see comment for the commit b0c4419 above
 
 8b00f92 MIPS: OCTEON: Save/Restore wider multiply registers in OCTEON III CPUs
-	+++ (03_octeon_switch.01)
+	+++ (octeon_switch.01)
 
 c4edf70 MIPS: OCTEON: Reword octeon_pci_console messages.
 
@@ -793,7 +800,7 @@ fe15c39 Fix macro name clash when KVM enabled
 5a2877b MIPS: Octeon: Hotplug_cpu: Fix available coremask printout Bug# 8263 Signed-off-by: Leonid Rosenboim <lrosenboim@caviumnetworks.com>
 
 b90fdf2 MIPS: OCTEON: Fix FP context save.
-	+++ (03_octeon_switch.01)
+	+++ (octeon_switch.01)
 
 3793d03 MIPS: OCTEON: Allow CONFIG_CAVIUM_CN63XXP1 to be disabled.
 c99652b MIPS: OCTEON: Export octeon_bootbus_sem.
@@ -832,7 +839,7 @@ b1b97b4 MIPS: OCTEON: Fix plat_swiotlb_setup() for OCTEON3
 b41816f ftrace MIPS/recordmcount: Don't ignore the first function in a file
 
 4242acd MIPS: OCTEON: Save and restore CP2 SHA3 state
-	+++ (03_octeon_switch.01)
+	+++ (octeon_switch.01)
 
 09a3f5d ed usb clock init for octeon to be called from dwc3 driver. Signed-off-by: Vinita Gupta <vgupta@caviumnetworks.com>
 4540334 edac/octeon_edac-lmc: Fix kernel panic when 1 DDR present
@@ -1030,7 +1037,7 @@ fbb99c8 MIPS/OCTEON: Update S.E files and kernel code to match.
 616d461 MIPS/OCTEON: CIU/CIU2 use random msi irqs.
 
 ffee00b MIPS: OCTEON: Use correct instruction to read 64-bit COP0 register
-	+++ (03_octeon_switch.01)
+	+++ (octeon_switch.01)
 
 7e1617a MIPS:OCTEON: Enable access to CVMSEG for user space
 4b8468f MIPS: OCTEON: Fix compilation issues for debugging kernel
