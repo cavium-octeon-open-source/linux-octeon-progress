@@ -11,7 +11,7 @@
 # 	>>> -- related to kvm.  for Andreas
 #
 # tags:
-# 	#SE -- simple executable
+# 	#SE [N] -- simple executable
 #	#MERGE -- merge commits
 #	#REVERTS SHA
 #	#REVERTED SHA
@@ -385,7 +385,7 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 
 c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 	+++
-	#SE
+	#SE 1
 	see also 8083a9b
 	see also a0c4950
 
