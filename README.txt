@@ -315,7 +315,7 @@ af5f2fb MIPS: Add nudges to writes for bit unlocks.
 	+++
 
 d645168 perf: Try to disable detection of python
-	--- perf;  not now;  probably never
+	---
 	#REVERTED 4a73415
 
 37d42aa MIPS: OCTEON: Sync up HOTPLUG_CPU with bootloader structures.
@@ -333,12 +333,13 @@ fbb44e9 watchdog: octeon-wdt: Add command-line option to disable.
 
 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
 	!!! perf;  not now
-	should have picked: contaminated with c415bff
+	on top of 8963a8d above
+	contaminated with c415bff
 
 # Nov 20
 
 239f7af MIPS: OCTEON: Quit using csrc-octeon-ptp.c as a clock source.
-	--- see also:
+	!!! see also:
 	8d4aca2 MIPS: OCTEON: Add utility helper function octeon_read_ptp_csr()
 	a0c4950 MIPS: OCTEON: Add PTP clocksource.
 	This patch is basically disables the clock that what was introduced in a0c4950
@@ -385,9 +386,9 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 
 c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 	+++
-	#SE 1
-	see also 8083a9b
-	see also a0c4950
+	#SE 01
+	see also 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
+	see also a0c4950 MIPS: OCTEON: Add PTP clocksource
 
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
 
