@@ -9,6 +9,7 @@
 # 	??? -- should be investigated
 # 	+++ (branch name) -- cherry-picked preparing to upstream
 # 	>>> -- related to kvm.  for Andreas
+#	*** -- work in progress
 #
 # tags:
 # 	#SE [N] -- simple executable
@@ -100,6 +101,8 @@ b13153b MIPS: Add Octeon2 optimizations to clear_page.
 520b3e0 Add octeon2 build and configuration option
 	??? Probably required
 	David: Not required
+	see 4e60836 MIPS: OCTEON: Add table driven handler for SoC error conditions.
+	see c415bff  MIPS: OCTEON: Import new S.E. and adjust things to match.
 
 0554e80 MIPS: OCTEON: Select ARCH_REQUIRE_GPIOLIB
 9167b5d gpio/MIPS/OCTEON: Add a driver for OCTEON's on-chip GPIO pins.
@@ -117,6 +120,7 @@ a47c13c i2c: i2c-octeon: broken irqs, high-level controller, retry lost arbitrat
 8d5ea1a usb: Convert {ohci,ehci}-octeon.c to use device tree.
 9dfac39 usb: ehci-octeon/ohci-octeon: Fix for little-endian kernel.
 b7dc0ef mmc: Add host driver for OCTEON MMC controller.
+	!!! drivers
 
 e723e8b of: Add prefix parameter to of_modalias_node().
 	---
@@ -376,8 +380,11 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 	#MERGE
 
 70a246f MIPS: OCTEON: Add framework for managing and reporting hardware status bit assertions.
+	+++
+
 4e60836 MIPS: OCTEON: Add table driven handler for SoC error conditions.
-	!!! not now
+	+++
+	CONFIG_CAVIUM_OCTEON_ERROR_TREE config option from 520b3e0
 
 39ae96c i2c: i2c-octeon: Add  octeon_i2c_cvmx2i2c() function.
 	!!! not now
@@ -385,17 +392,22 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 # Nov 21
 
 c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
-	+++
+	***
 	#SE 01
 	see also 8083a9b MIPS: Octeon: perf_counters for all TADs in available LMC controllers
 	see also a0c4950 MIPS: OCTEON: Add PTP clocksource
+	CVMX_ENABLE_PARAMETER_CHECKING from 520b3e0
 
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
 
 de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
 436c461 MIPS: OCTEON: Removed unused CAVIUM_DECODE_RSL related files.
 4c68051 MIPS/EDAC: Cavium: Fix compilation errors.
+
 f0244a3 MIPS: OCTEON: Add missing octeon-ethernet-user.h
+	+++
+	#SE 01
+	should be rolled in the previous SE01 patch
 
 1178699 netdev: octeon-ethernet: Remove incorrect __init annotation.
 2e11c90 ata: Use WARN instead of BUG in pata_octeon_cf.
@@ -526,7 +538,9 @@ bbe2eba Revert "of: Add prefix parameter to of_modalias_node()."
 
 
 fa9a03c MIPS: Octeon: Initialize proper CVMX_SSO_NW_TIM register.
+
 f7e3138 MIPS: Fix arch in assembly for saa instruction.
+
 62a22e9 netdev: octeon-ethernet: Configure the PHY interface type correctly.
 b07e85e mips/ftrace: Fix function tracing return address to match
 
