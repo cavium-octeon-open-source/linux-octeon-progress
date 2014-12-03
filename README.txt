@@ -117,6 +117,8 @@ d7a3ff9 Fix section mismatch in gpio-octeon.c
 	!!! drivers -- skip for now
 
 a47c13c i2c: i2c-octeon: broken irqs, high-level controller, retry lost arbitration
+	+++
+
 8d5ea1a usb: Convert {ohci,ehci}-octeon.c to use device tree.
 9dfac39 usb: ehci-octeon/ohci-octeon: Fix for little-endian kernel.
 b7dc0ef mmc: Add host driver for OCTEON MMC controller.
@@ -387,7 +389,9 @@ b427aeb MIPS: Octeon: Core-15169 Workaround and general CVMSEG cleanup.
 	CONFIG_CAVIUM_OCTEON_ERROR_TREE config option from 520b3e0
 
 39ae96c i2c: i2c-octeon: Add  octeon_i2c_cvmx2i2c() function.
-	!!! not now
+	+++
+	this function was required by
+	c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 
 # Nov 21
 
@@ -405,7 +409,7 @@ de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
 4c68051 MIPS/EDAC: Cavium: Fix compilation errors.
 
 f0244a3 MIPS: OCTEON: Add missing octeon-ethernet-user.h
-	+++
+	***
 	#SE 01
 	should be rolled in the previous SE01 patch
 
@@ -436,7 +440,12 @@ f819600 MIPS: Octeon: Cleanup obsolete CrashKernel memory init in octeon/setup.c
 f322e41 MIPS: Octeon: Add /proc/octeon_info support.
 c9cbce3 MIPS: Octeon: Allow TLB modify handlers to use scratchpad for temporary register save.
 d77ec45 MIPS: Fix typo in CAVIUM_OCTEON_* SYS_SUPPORTS_HOTPLUG_CPU
+
 a417eac MIPS: Octeon: adopt hotplug code to new struct cvmx_coremask
+	+++
+	required to compile 
+	c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+
 70e3f51 MIPS: Octeon: Rearrange L2 cache locking code
 6365c1d MIPS/edac/OCTEON: Hook up Write Buffer parity errors to EDAC.
 2f212cb MIPS/edac/OCTEON: Hook up Write Buffer parity errors to EDAC.
@@ -579,6 +588,9 @@ f5ac9e9 netdev:octeon-ethernet: Set MAC/PHY mode and 1000x/SGMII mode.
 
 788bfb9 MIPS: OCTEON: Update S.E. files
 	#SE
+	changes for cvmx-app-init.h (CVMX_BOARD_TYPE_UBNT_E100) go to 
+	c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+	the other changes are probably already in upstream (a135a9b5d9683ace787c7d86f1e642d9acfacdde)
 
 bca8fc5 netdev: octeon-ethernet: Make cvm_oct_pools_lock a mutex
 fdde77e MIPS: octeon: Handle cn5xxx USB from builtin device tree
