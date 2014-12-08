@@ -136,8 +136,14 @@ fc375c3 spi: Use consistent MODALIAS values.
 d33f6e6 netdev/phy: Add driver for Cortina cs4321 quad 10G PHY.
 83b3ab9 netdev/staging: octeon-ethernet: Clean up PHY handling.
 721cbcb netdev/staging: octeon-ethernet: Only initialize PHYs when a netdevice is open
+	!!! drivers -- skip for now
+
 bea86de MIPS: OCTEON: Add sysfs support for CPU power throttling.
 	!!! drivers -- skip for now
+
+	unapplied chunk from
+	c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+		arch/mips/cavium-octeon/octeon-power-throttle.c
 
 a0c4950 MIPS: OCTEON: Add PTP clocksource.
 	??? basicly driver, but defines OCTEON_CNF7XXX in 
@@ -185,6 +191,9 @@ c3a04f9 MIPS: OCTEON: Don't do acknowledge operations for level triggered irqs.
 
 4e03dca MIPS: OCTEON: Change load address to waste less memory.
 	+++
+	depends on CONFIG_MAPPED_KERNEL that was introduced later in
+	c06b1ca "MIPS: OCTEON: Add support for running kernel in mapped address space."
+
 
 b1d9a98 MIPS: Change sparsemem physical memory bits from 35 to 38
 	--- it has been increased to 48 in c46173183657bbdbe0d54a981c28807581648422
@@ -196,16 +205,27 @@ b1d9a98 MIPS: Change sparsemem physical memory bits from 35 to 38
 
 5043204 MIPS: OCTEON: Add ability to used an initrd from a named memory block.
 	+++ (with conflicts)
+	David: Please try to test this by creating an initrd image and loading it into a bootloader named memory block.  Let's not submit this patch until we have tested it.  MIPS/Debian maintainers really need this functionality, so it would be very nice to get it working.
 
 abed31e MIPS: OCTEON: Rearrange CVMSEG slots.
 	!!! related to fast tls;  (?) skipping
 
 f3dbda3 MIPS: OCTEON: Add little-endian support to asm/octeon/octeon.h
+	+++
+	David: The second part of the change (to union octeon_cvmemctl) must be
+	rewritten to use the __BITFIELD_FIELD() macro as is done in arch/mips/include/uapi/asm/inst.h
+	Aleksey: Done
+
 8f2dd4e MIPS: OCTEON Handle bootloader structures in little-endian mode.
+	+++
+	David: Let's defer this patch.  In our current SDK kernel, I think we have removed all code that uses these, so it is probably unneeded.
+
 fa86eea MIPS: OCTEON: Add mach-cavium-octeon/mangle-port.h
 9734af5 MIPS: OCTEON: Make cvmx-bootmem and packet I/O functions work Little Endian.
 	+++
 	these basically were merged to make merging the first large S. E. patch easy
+	David:  Introduces too many coding style changes, Let's also defer this patch for a little while.  We need to be very careful with these and only include necessary changes, and no formatting changes that are unrelated to the code changes.  For these cvmx-* files, we want to see if there are changes that should be made to our local copies that will decrease the size of future patches.
+	#SE00 actually
 
 fd9bc4f netdev: octeon-ethernet: Add support for Little Endian kernels.
 bb9fae7 MIPS: OCTEON: Make PCIe work with Little Endian kernel.
@@ -217,6 +237,7 @@ f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
 
 3f9ce70 MIPS: Octeon: Implement DCache errata workaround for all CN6XXX
 	+++
+	David: So, after testing, and the minor changes I requested, I think all the patches (except those I said to defer) up to and including (MIPS: Octeon: Implement DCache errata workaround for all CN6XXX) can be submitted upstream.
 
 5304368 MIPS: OCTEON: Remove unneeded alignment specifiers from struct thread_struct.
 	+++ (with conflict resolution)
@@ -291,6 +312,11 @@ ce35e6b MIPS: Octeon: Define NR_CPUS_DEFAULT_32 for Cavium Octeon.
 
 8963a8d MIPS: OCTEON: Add /proc/octeon_perf support.
 	!!! perf; not now
+
+	unapplied chunk from
+	c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
+		arch/mips/cavium-octeon/perf_counters.c
+
 
 b0c4419 MIPS: Octeon: Don't restore $ra in SAVE_SOME
 	--- outdated by merging the commit 
@@ -402,6 +428,10 @@ c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 	see also a0c4950 MIPS: OCTEON: Add PTP clocksource
 	CVMX_ENABLE_PARAMETER_CHECKING from 520b3e0
 
+	chunks that were not applied:
+		arch/mips/cavium-octeon/octeon-power-throttle.c
+		arch/mips/cavium-octeon/perf_counters.c
+
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
 
 de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
@@ -409,17 +439,26 @@ de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
 4c68051 MIPS/EDAC: Cavium: Fix compilation errors.
 
 f0244a3 MIPS: OCTEON: Add missing octeon-ethernet-user.h
-	***
+	+++
 	#SE 01
-	should be rolled in the previous SE01 patch
+	has been rolled in the previous SE01 patch
 
 1178699 netdev: octeon-ethernet: Remove incorrect __init annotation.
+
 2e11c90 ata: Use WARN instead of BUG in pata_octeon_cf.
 0b78298 usb: Add host driver for cn3XXX and cn5XXX SoCs
+
 3211e1f MIPS: OCTEON: Handle non-cn6xxx in several places.
 d23ae68b MIPS/OCTEON: Initialize QLM JTAG.
 6c6f0e7 MIPS/OCTEON: Override default address space layout.
+
 c06b1ca MIPS: OCTEON: Add support for running kernel in mapped address space.
+	see also
+	4e03dca MIPS: OCTEON: Change load address to waste less memory.
+
+	does not apply quite smoothly because of missing
+	3adc612 MIPS: Octeon: Add config option to disable ELF NOTE segments
+
 
 4208c04 Fix compile warning in mm/page_alloc.c
 	---
@@ -504,6 +543,8 @@ e6e44e79 MIPS: Don't save/restore OCTEON wide multiplier state on syscalls.
 
 8b00f92 MIPS: OCTEON: Save/Restore wider multiply registers in OCTEON III CPUs
 	+++ (octeon_switch.01)
+	merged with my patch to be compiled with the old compilers without
+	support for Octeon III instructions
 
 c4edf70 MIPS: OCTEON: Reword octeon_pci_console messages.
 
