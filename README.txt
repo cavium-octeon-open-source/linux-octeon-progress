@@ -432,6 +432,10 @@ c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 		arch/mips/cavium-octeon/octeon-power-throttle.c
 		arch/mips/cavium-octeon/perf_counters.c
 
+	in the end, some parts of this file go upstream:
+		- parts of arch/mips/include/asm/octeon/octeon-model.h
+		- arch/mips/include/asm/octeon/cvmx-rst-defs.h
+
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
 
 de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
@@ -557,6 +561,12 @@ c4edf70 MIPS: OCTEON: Reword octeon_pci_console messages.
 	#REVERTS 5fc0affd93a2f8d581ce909eda541742549738b1
 
 a9c987b MIPS:OCTEON: More OCTEONIII support
+	+++
+	this was merged as David said that csrc-octeon.c should be fixed.
+
+	in the end, a part of this go upstream:
+		arch/mips/cavium-octeon/csrc-octeon.c
+
 0a194ae MIPS: OCTEON: Fix model check for setting clock rate.
 0c040e0 MIPS: Octeon: Add Octeon3 cache handling
 37d27b6 MIPS: OCTEON: Add driver Serial Rapid I/O (sRIO) hardware
@@ -730,7 +740,11 @@ f44ecee MIPS: Only flush local ICache in get_new_asid().
 
 0bf4545 MIPS: OCTEON: Simplify/cleanup octeon_send_ipi_mask.
 1841d29 MIPS: Handle OCTEON BBIT instructions in FPU emulator.
+
 57a4c82 MIPS: OCTEON: Handle cn78XX counters in csrc-octeon.c
+	+++
+	this was merged as David said that csrc-octeon.c should be fixed.
+
 ab164ed MIPS: OCTEON: Don't write FAU registers for cn78XX
 528bc85 MIPS: OCTEON: Use of_irq_init() to initialize interrupt controllers.
 4694a47 netdev: octeon-pow-ethernet.c: Don't disable interrrupt in interrupt handler.
@@ -889,6 +903,7 @@ d9e1c49 MIPS: Update mips_paravirt_defconfig
 	#SE
 
 0b2f4bf MIPS: OCTEON: Synchronize CP0.Count across CPUs.
+
 7b659aa MIPS: Add definition of CP0_GUESTCTL2
 9822eb5 MIPS: KVM-VZ updates.
 
@@ -1580,8 +1595,10 @@ f1a8fb8 MIPS: OCTEON: Define NR_IRQS_LEGACY.
 8de7f5d watchdog: octeon-wdt: Correct spelling and make do_countdown boolean.
 303503c watchdog: octeon-wdt: Disable building as a module.
 d238d14 watchdog: octeon-wdt: Fix to work on multi-node systems.
+
 a734e33 MIPS: OCTEON: Rename csrc-octeon clocksource variables for clarity.
 8719780 MIPS: OCTEON: Add csrc-fpa-clk.
+
 305193b Fix compile error in case CONFIG_FAST_ACCESS_THREAD_REGISTER=n
 f7d7106 genirq: Add irq_domain-aware core IRQ handler
 ce66a58 MIPS: OCTEON: Use handle_domain_irq to fix suspicious RCU usage
