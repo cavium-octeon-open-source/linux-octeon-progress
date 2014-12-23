@@ -107,11 +107,14 @@ b13153b MIPS: Add Octeon2 optimizations to clear_page.
 0554e80 MIPS: OCTEON: Select ARCH_REQUIRE_GPIOLIB
 9167b5d gpio/MIPS/OCTEON: Add a driver for OCTEON's on-chip GPIO pins.
 43320dd gpio/OCTEON: Fix typos and and simplify I/O count determination
-	!!! drivers -- skip for now
+	---
+	it seems these are already in vanilla kernel
+	#GPIO
 
 8d4aca2 MIPS: OCTEON: Add utility helper function octeon_read_ptp_csr()
-	!!! drivers (from comment: used by following Ethernet PTP patches)
-	probably should be merged with those patches
+	+++ 
+	added to compile ethernet after the SE01 patch 
+	(probably is not required, as this function is probably not used anymore)
 
 d7a3ff9 Fix section mismatch in gpio-octeon.c
 	!!! drivers -- skip for now
@@ -121,8 +124,10 @@ a47c13c i2c: i2c-octeon: broken irqs, high-level controller, retry lost arbitrat
 
 8d5ea1a usb: Convert {ohci,ehci}-octeon.c to use device tree.
 9dfac39 usb: ehci-octeon/ohci-octeon: Fix for little-endian kernel.
+
 b7dc0ef mmc: Add host driver for OCTEON MMC controller.
-	!!! drivers
+	+++
+	#MMC
 
 e723e8b of: Add prefix parameter to of_modalias_node().
 	---
@@ -437,8 +442,11 @@ c415bff MIPS: OCTEON: Import new S.E. and adjust things to match.
 		- arch/mips/include/asm/octeon/cvmx-rst-defs.h
 
 3333299 MIPS: OCTEON: Build cvmx-appcfg-transport.o and cvmx-fpa-resource.o
+	+++
 
 de87944 netdev: octeon: Move and update OCTEON network drivers from staging.
+	+++
+
 436c461 MIPS: OCTEON: Removed unused CAVIUM_DECODE_RSL related files.
 4c68051 MIPS/EDAC: Cavium: Fix compilation errors.
 
@@ -520,6 +528,8 @@ b201b03 MIPS: OCTEON: Initialize KGDB after serial port is setup.
 	#REVERTED f9da4567169b281514c79d2798f2c8da4fe1c051
 
 89b486a mmc: OCTEON: Improve GPIO support.
+	+++
+	#MMC
 
 baa75ab MIPS: OCTEON: Allow for error tree reporting to be enabled per group.
 	---
@@ -622,10 +632,20 @@ b07e85e mips/ftrace: Fix function tracing return address to match
 8fcdb8b MIPS: OCTEON: Increase the number of irqs for !PCI case
 4d4ab15 serial: 8250_dw: Mask register value in dw8250_serial_outq.
 174c9f7 MIPS: Add support for OCTEON III perf events.
+
 6a4845a MIPS: OCTEON: Add semaphore to serialize bootbus accesses.
+	+++
+	#MMC
+
 80ab07c mmc: octeon_mmc: Use octeon_bootbus_sem.
+	+++
+	#MMC
+
 8ea172e MIPS: OCTEON: Protect accesses to bootbus flash with octeon_bootbus_sem.
 aab4d33 MIPS: OCTEON: Use device tree to probe for flash chips.
+	+++
+	#MMC
+
 5c6c83e netdev: octeon-ethernet: Fix netif_running/netif_queue_stopped confusion.
 
 1a8bed7 MIPS:OCTEON: Sync up SE files.
@@ -885,7 +905,11 @@ b90fdf2 MIPS: OCTEON: Fix FP context save.
 	+++ (octeon_switch.01)
 
 3793d03 MIPS: OCTEON: Allow CONFIG_CAVIUM_CN63XXP1 to be disabled.
+
 c99652b MIPS: OCTEON: Export octeon_bootbus_sem.
+	+++
+	#MMC
+
 fd3c36d Fix little-endian macro name clash when KVM enabled
 c0bed96 octeon-pow-ethernet: bi-endian cluster support
 e54c99a MIPS: OCTEON: Enable tlb parity error for O3
@@ -937,7 +961,11 @@ b41816f ftrace MIPS/recordmcount: Don't ignore the first function in a file
 	#MERGE
 
 f96d80f MIPS: Octeon: RapidIO: Do not create the same sysfs file twice.
+
 d81103b mmc: octeon_mmc: Handler multiple slots, and fix bugs.
+	+++
+	#MMC
+
 d118a2c MIPS: Octeon: RapidIO: Initialize the spin lock.
 6f367e5 EDAC: octeon_edac-lmc: Fixed crash for DIMM1-only case
 
@@ -946,13 +974,20 @@ ae75eac MIPS: OCTEON: hw_status tree, remove sleep-holding-rwlock issues
 	#REVERTED 458bea52f824dad7d9ae5174139253e09041b957
 
 7cd3753 MIPS: Octeon: RapidIO: Set the ipd port, pko port, and pko queue base correctly.
+
 6865dba mmc: octeon_mmc: Add driver parameters to limit multi-block transfers.
+	+++
+	#MMC
 
 ce191e8 MIPS: OCTEON: Sync-up SE files.
 	#SE
 
 dc4a658 MIPS: OCTEON: Fix typo in 'fpmov' performance counter event.
+
 9b0f8c9 mmc: octeon_mmc: Fix error recovery.
+	+++
+	#MMC
+
 b28893d MIPS: octeon-hw-status: fix refcounting
 299ab77 MIPS:OCTEON:SATA:hecked ata platform code to modify octeon SHIM according to endianess Signed-off-by: Vinita Gupta
 73c2bf0 MIPS: Octeon: RapidIO: Set the MTU correctly and pad small packets to 64 bytes.
@@ -999,12 +1034,23 @@ e0ce0b5 ata sata_octeon: Set proper DMA masks.
 61944fe MIPS: octeon-hw-status tree-walker should visit irq objects
 631ebe8 MIPS: octeon-hw-status rework
 c55e1c6 MIPS: octeon-hw-status merge typos
+
 5c6c73c mmc octeon_mmc: Clean up device tree accesses.
+	+++
+	#MMC
+
 6cd5ce58 MIPS: octeon-hw-status: cleanup no-irq logic
 9381636 MIPS: octeon-power-throttle: allow booting in low-power mode
 7de4094 MIPS: octeon-hw-status only free IRQs we own!
+
+
 4fcf177 mmc octeon_mmc: Add configurable clock skew settings.
 236bc26 mmc octeon_mmc: Set MIO_BOOT_CTL correctly on cn70XX
+	+++
+	#MMC
+
+
+
 41272ed netdev: octeon-ethernet:  Get rid of bogus locking.
 
 2a11301 MIPS: OCTEON: Sync up SE files.
@@ -1066,7 +1112,9 @@ cb5662c usb: xhci-octeon: replaced cvmx_wait with udelay/ndelay
 097645e netdev: octeon-ethernet: Initialize gmx_base for SPI interface.
 91a46c5 # User Ronny Meeus <ronny.meeus@alcatel-lucent.com> # Date 1386156065 -3600 #      Wed Dec 04 12:21:05 2013 +0100 # Node ID a0615a4c69c8749f43f285c4fdb756dbf572a38c # Parent  2ba522e9bb1949c61327c3cca0afedb7c09a3702 alu change: enable unicast filter for all relevant network interfaces
 c2bf961 MIPS: msi-octeon: Add msi-x support.
+
 da5d8f0 of/gpio: Define OF_GPIO_OPEN_DRAIN flag for Open Drain outputs.
+
 e86aecf netdev/phy: Clean up structure names in vsc848x.c
 08de367 netdev/phy: Add driver for TI tlk10232 dual-10G PHY.
 9f1ddc0 MIPS OCTEON: Fix OOPs in pci console.
@@ -1155,13 +1203,42 @@ fff94439 OCTEON: Fix section mismatch.
 	#REVERTED 4b33103
 
 bd677d7 mmc: core: Only execute tuning for SDR50 and SDR104
+	---
+	#MMC
+	already: 810e08ee425f8d7327e4b30069a9b2b3dccfc67d
+
 201a8c3 mmc: block: fix a bug of error handling in MMC driver
+	---
+	#MMC
+	already: c8760069627ad3b0dbbea170f0c4c58b16e18d3d
+
 a03b507 mmc: core: Set data timeout for mmc bus test commands (CMD14 and CMD19).
+	---
+	#MMC
+	already: 84532e33975bd8fc969c77c8a2a980df2ec096a5
+
 d1a8ae9 mmc: core: mmc DDR mode should not depend on UHS_DDR50
+	---
+	#MMC
+	already: 83cc16d767f94edf5821cc89d8300ddb6785810c
+
 c64eb0b mmc: fix host release issue after discard operation
+	---
+	#MMC
+	already: f662ae48ae67dfd42739e65750274fe8de46240a
+
 865eca0 mmc: core: Use generic CMD6 time while switching to eMMC HS200 mode
+	---
+	#MMC
+	already: 69803d4f487fc60ce740f1fe1f0d2092d97277b6
+
 9d2facd MMC: rmmod octeon_mmc should quiesce device
+	+++
+	#MMC
+
 e192fda MMC: octeon_mmc multi-block dma
+	+++
+	#MMC
 
 4b33103 Revert "MIPS: drop octeon flash-setup if unused"
 	---
@@ -1172,6 +1249,9 @@ e192fda MMC: octeon_mmc multi-block dma
 	#REVERTED 852355d
 
 f2231b8 mmc octeon_mmc: Do request_irq later to avoid OOPS.
+	+++
+	#MMC
+
 e51cd25 MIPS: OCTEON: Whole tree make device tree compatible strings consistent for cn7890.
 
 852355d Revert "MIPS: OCTEON: Default to 48 cores"
@@ -1179,7 +1259,10 @@ e51cd25 MIPS: OCTEON: Whole tree make device tree compatible strings consistent 
 	#REVERTS 93c88068e63972548b412a9e88cbfeb06becee01.
 
 4d11f03 watchdog: octeon-wdt: Fix count rate for cn78XX SoC.
+
 f37c0fb mmc octeon_mmc: Add back the mmc_serializer semaphore for cn78XX
+	+++
+	#MMC
 
 af7c520 MIPS: OCTEON: Update S.E. files.
 	#SE
@@ -1202,7 +1285,12 @@ af7c520 MIPS: OCTEON: Update S.E. files.
 
 23323af netdev: octeon3-ethernet:  Enable HW checksums.
 e7f42eb netdev: octeon3-ethernet: Enable MAC address filtering.
+
 cb3d922 mmc: octeon_mmc: Prevent concurrent entry to irq handler.
+	+++
+	#MMC
+
+
 4c17faf netdev: octeon3-ethernet: Disable hardware checksums.
 d415eae netdev: octeon3-ethernet: Enable HW checksums.
 04a6cd7 MIPS: OCTEON: Fix typos in CIU3 interrupt handler code.
@@ -1220,7 +1308,11 @@ d3bd51e MIPS: OCTEON: Fix enabling of MSI-X interrupts for cn78XX.
 ca65c65 MIPS: Don't used EHB in TLB handlers when not needed.
 ff01302 MIPS: OCTEON: Add preliminary GPIO interrupt support for cn78XX.
 cd23717 MIPS: OCTEON: Fix io_resource end value
+
 701923d mmc: octeon_mmc: Implment host bus lock-up workaround.
+	+++
+	#MMC
+
 d3ced3d netdev: octeon3_ethernet: Get rid of TX complete WQEs.
 
 44e867f MIPS: OCTEON: Update S.E. files to r98762
@@ -1250,16 +1342,24 @@ a46cf56 MIPS: OCTEON: Update S.E. to r99089.
 	#SE
 
 24e3fb3 MIPS: OCTEON: Fix routing of cn78XX PCIe intA interrupts.
+
+
+
 53d6d08 mmc: octeon_mmc DDR support
 d1bf344 mmc: octeon_mmc DDR clocks at half SDR by default
 9a3f2a7 mmc: octeon_mmc: correct memcpy of short transfer
 e5073e3 mmc: octeon_mmc: avoid deadlocks on add/remove host
+	+++
+	#MMC
 
 5f48f71 mmc: octeon_mmc: add card-detect polling
 	---
 	#REVERTED 212938d
 
 014f6b0 mmc: octeon_mmc: recover from DMA errors
+	+++
+	#MMC
+
 bf9d71c netdev: octeon3-ethernet: Disable SCTP checksum for CN78XX_PASS1.
 f81537f netdev: octeon3-ethernet: Set affinity_hints for irqs.
 
@@ -1271,7 +1371,12 @@ ae0c5cd MIPS: OCTEON: Disable error interrupts for Erratum PKI-20858
 5f88d64 netdev: octeon3-ethernet:  Fix little endian RX.
 e2c61df netdev: octeon3-ethernet: Implement PKI-20775
 074504e netdev: octeon3-ethernet: Use separate PKO pools for SSO and PKO.
+
 7756177 mmc: octeon_mmc: Disable debug printing.
+	+++
+	#MMC
+
+
 d91c00e netdev: octeon3-ethernet: Autoconf the ports if no PHY present.
 
 8859a91 MIPS:OCTEON: Sync up SE files
@@ -1320,7 +1425,11 @@ b5ade09 MIPS: Move definition of __BITFIELD_FIELD to sharable header.
 3e24ef6 netdev: octeon3-ethernet: Use seperate threads for memory allocation.
 9dbdcd1 MIPS: Mask/unmask some PKI_GEN_INT bits.
 58625ab mips: n32: use compat getsockopt syscall
+
 b1c71e7 mmc: octeon_mmc: Try to avoid OOPs
+	+++
+	#MMC
+
 252b318 Merge MIPS/KVM updates into OCTEON-SDK-3.Y
 94f7cc0 kvm tools, mips: Rewrite mips-fix-e_flags.sh so it doesn't use xxd.
 6a0b67b MIPS/OCTEON: Add multiple msi support.
