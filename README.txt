@@ -26,7 +26,9 @@
 # #MMC
 # #FLASH
 # #SATA
-#
+# #USB
+# #RESET
+# 
 # --------------------------------------------------------------------------------
 
 b3366c2a MIPS: OCTEON: Rename Kconfig CAVIUM_OCTEON_REFERENCE_BOARD to CAVIUM_OCTEON_SOC
@@ -118,7 +120,7 @@ b13153b MIPS: Add Octeon2 optimizations to clear_page.
 	(probably is not required, as this function is probably not used anymore)
 
 d7a3ff9 Fix section mismatch in gpio-octeon.c
-	!!! drivers -- skip for now
+	---
 
 a47c13c i2c: i2c-octeon: broken irqs, high-level controller, retry lost arbitration
 	+++
@@ -232,6 +234,7 @@ f3dbda3 MIPS: OCTEON: Add little-endian support to asm/octeon/octeon.h
 
 8f2dd4e MIPS: OCTEON Handle bootloader structures in little-endian mode.
 	+++
+	#LITTLE
 	David: Let's defer this patch.  In our current SDK kernel, I think we have removed all code that uses these, so it is probably unneeded.
 
 fa86eea MIPS: OCTEON: Add mach-cavium-octeon/mangle-port.h
@@ -243,11 +246,12 @@ fa86eea MIPS: OCTEON: Add mach-cavium-octeon/mangle-port.h
 
 fd9bc4f netdev: octeon-ethernet: Add support for Little Endian kernels.
 bb9fae7 MIPS: OCTEON: Make PCIe work with Little Endian kernel.
+
 658e2b4 MIPS: OCTEON: Enable little endian kernel.
 	!!! related to little-endian and drivers;  not now
+	#LITTLE
 
 f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
-	!!! drivers;  not now
 
 3f9ce70 MIPS: Octeon: Implement DCache errata workaround for all CN6XXX
 	+++
@@ -314,7 +318,6 @@ fb0ee08 mtd: nand_ids:  Add a couple of device identifiers to the table.
 	+++
 
 5d84506 MIPS: Octeon: Increase PCI_CONFIG_SPACE_DELAY
-	!!! pci.  not now
 
 3adc612 MIPS: Octeon: Add config option to disable ELF NOTE segments
 	??? some workaround for old bootloaders.  Probably is not required upsteram (?)
@@ -533,7 +536,9 @@ ae26832 MIPS: Add cpu_has_saa to cpu-features.h
 a86b980 misc/at24: Register memory accessor functions with of_memory_accessor
 f6e59de netdev/phy/of: Handle nexus Ethernet PHY devices
 3cb6b89 netdev/phy: Add driver for Vitesse vsc848x single, dual and quad 10G phys
+
 34dd2cd MIPS: Octeon: Use cvmx-pcie.c from executive.
+
 e62d7b0 netdev/phy: Fixed mask for active copper cable check.
 499b27e MIPS: Octeon: Add /sys/devices/system/cpu/cpuX/cache
 b073130 gpio: gpio-octeon: Clean up code.
@@ -880,6 +885,8 @@ d326dd8 MIPS: OCTEON: Sync up more SE files.
 	#SE
 
 37342df MIPS: OCTEON: Use correct CSR to soft reset
+	#RESET
+
 db14a40 MIPS: OCTEON: Add header file to fix compilation errors.
 116de25 MIPS: OCTEON: Remove unused function cvmx_reset_octeon()
 
@@ -945,6 +952,7 @@ ecb0420 MIPS: OCTEON: Add register definitions for OCTEON III USB.
 4b8dd9a usb: Hack up xhci, so that it works with the OCTEON III xHCI controller.
 	???
 	see also d59d94498bedabdf0dfc5581953150a354f6b0b2
+	#USB
 
 28c1f9b MIPS: OCTEON: Sync up SE files.
 	#SE
@@ -963,7 +971,7 @@ a89887d MIPS: OCTEON: Handle "level" triggering of CIB interrupts.
 	#IRQ
 
 fe15c39 Fix macro name clash when KVM enabled
-	>>>
+	see also c99652b
 
 5a2877b MIPS: Octeon: Hotplug_cpu: Fix available coremask printout Bug# 8263 Signed-off-by: Leonid Rosenboim <lrosenboim@caviumnetworks.com>
 
@@ -978,6 +986,8 @@ c99652b MIPS: OCTEON: Export octeon_bootbus_sem.
 	#FLASH
 
 fd3c36d Fix little-endian macro name clash when KVM enabled
+	see also fe15c398
+
 c0bed96 octeon-pow-ethernet: bi-endian cluster support
 e54c99a MIPS: OCTEON: Enable tlb parity error for O3
 15d1fa0 MIPS: OCTEON: Keep reset value for COP0_ERRCTL
@@ -988,7 +998,9 @@ e54c99a MIPS: OCTEON: Enable tlb parity error for O3
 8ac7d83 MIPS: paravirt: Handle SMP_ICACHE_FLUSH IPI message
 7a9b08e MIPS: paravirt: Implement _machine_halt
 d9e1c49 MIPS: Update mips_paravirt_defconfig
+
 68ca379 MIPS:USB:OCTEON: Configure SHIM according to endianness
+	#USB
 
 2c20421 MIPS: OCTEON: Sync up SE files
 	#SE
@@ -1019,6 +1031,9 @@ b41816f ftrace MIPS/recordmcount: Don't ignore the first function in a file
 	#OCTEONIII
 
 09a3f5d ed usb clock init for octeon to be called from dwc3 driver. Signed-off-by: Vinita Gupta <vgupta@caviumnetworks.com>
+	#USB
+
+
 4540334 edac/octeon_edac-lmc: Fix kernel panic when 1 DDR present
 
 6f4571c MIPS: OCTEON: Sync up SE files.
@@ -1065,7 +1080,9 @@ b28893d MIPS: octeon-hw-status: fix refcounting
 	#SATA
 
 73c2bf0 MIPS: Octeon: RapidIO: Set the MTU correctly and pad small packets to 64 bytes.
+
 b36a314 MIPS:USB:OCTEON:warning and other clean up
+	#USB
 
 07f6edf MIPS:SATA:OCTEON: compiler warning clean up
 	+++
@@ -1073,6 +1090,8 @@ b36a314 MIPS:USB:OCTEON:warning and other clean up
 	merged with the previous patch
 
 fadc36e MIPS:OCTEON:USB: fixed bug to make lodable dwc3 module working
+	#USB
+
 6a1b6c0 MIPS: octeon3 power throttle support
 a7cb16e MIPS: simplify octeon power throttle support
 
@@ -1195,7 +1214,10 @@ aae260b perf: u64 printf formats & other gcc fluff
 769e36a spi: spi-octeon.c: Allow faster speeds on octeonIII boards.
 f2b40aa spi: spi-octeon.c: Use device tree values to set the controller's maximum frequency.
 5fb9a92 MIPS: Octeon: RapidIO: Check skb headroom before pushing data.
+
 390cd9f usb: xhci-octeon: Update power control.
+	#USB
+	actually, this all has been replaced by pinmux in gpio
 
 cf7e849 Merge branch 'OCTEON-SDK-3.Y' of git://cagit1.caveonetworks.com/linux/linux-octeon-sdk into OCTEON-SDK-3.Y
 	---
@@ -1207,7 +1229,10 @@ f35b363 MIPS: OCTEON: Sync up SE files.
 22993e5 MIPS: OCTEON: NAND: Updated to support bch ecc correction.
 9280658 # HG changeset patch # User Ronny Meeus <ronny.meeus@alcatel-lucent.com> # Date 1386156030 -3600 #      Wed Dec 04 12:20:30 2013 +0100 # Node ID 2ba522e9bb1949c61327c3cca0afedb7c09a3702 # Parent  b1603c6392f81b0537b97ded34f5c6c685886260 alu change: NAND driver: disable subpage reads
 085af60     # HG changeset patch     # User Ronny Meeus <ronny.meeus@alcatel-lucent.com>     alu change: MIPS: OCTEON: Improve PHY mode setting
+
 cb5662c usb: xhci-octeon: replaced cvmx_wait with udelay/ndelay
+	#USB
+
 097645e netdev: octeon-ethernet: Initialize gmx_base for SPI interface.
 91a46c5 # User Ronny Meeus <ronny.meeus@alcatel-lucent.com> # Date 1386156065 -3600 #      Wed Dec 04 12:21:05 2013 +0100 # Node ID a0615a4c69c8749f43f285c4fdb756dbf572a38c # Parent  2ba522e9bb1949c61327c3cca0afedb7c09a3702 alu change: enable unicast filter for all relevant network interfaces
 c2bf961 MIPS: msi-octeon: Add msi-x support.
@@ -1644,7 +1669,13 @@ e0b2881 MIPS: OCTEON: Update S.E. to r104679
 	#SE
 
 09b2f64 MIPS: usb: octeon: allow modular usb
+	adds
+	+EXPORT_SYMBOL(__cvmx_helper_board_usb_get_clock_type);
+	+EXPORT_SYMBOL(__cvmx_helper_board_usb_get_num_ports);
+
 8817dda usb: dwc3: simplify OCTEON ifdefs
+	#USB
+	actually this is not required at all
 
 46f1adc MIPS: usb: octeon cn78xx multinode
 	---
@@ -1842,6 +1873,10 @@ c6907be MIPS: Supply OCTEON-II specific read/write lock implementation.
 	#SE
 
 13d5d9c usb: xhci-octeon: Fix for multi-node systems.
+	#USB
+	basically merged, but all the code for multi-node system was removed.
+	it should work now on a multinode system with proper configuration/device tree.
+
 24e7b51 MIPS: Select USB_ARCH_HAS_XHCI for CAVIUM_OCTEON_SOC
 
 -------------------------------------------------------------------------------
