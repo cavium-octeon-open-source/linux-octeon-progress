@@ -1,6 +1,6 @@
 ethernet.c
 
-in de87944^ 
+in de87944^
 11f4318 MIPS: OCTEON: netdev/ethernet Fix build error
 fd9bc4f netdev: octeon-ethernet: Add support for Little Endian kernels.
 721cbcb netdev/staging: octeon-ethernet: Only initialize PHYs when a netdevice is open
