@@ -283,9 +283,11 @@ f9037af MIPS: OCTEON: Add driver for OCTEON PCI console.
 
 4306373 MIPS: Octeon: Quit using all the mailbox bits.
 	+++ (with conflict resolution)
+	#ETH2
 
 87d2ec7 MIPS: Octeon: Add simple Octeon IPI infrastructure
 	+++
+	#ETH2
 
 253087c MIPS: Fix warning spew on CONFIG_PREEMPT_DEBUG and ptrace watch register use.
 	!!! some work on conflict resolution required;  not now
@@ -2068,3 +2070,76 @@ fa8aa6a MIPS: OCTEON: Updated octeon_perf to work on ebb7800.
 
 c4752cd7 netdev: octeon-ethernet: Remove unused CONFIG_CAVIUM_RESERVE32 definitions.
 	#ETH2
+
+-------------------------------------------------------------------------------
+
+OCTEON-SDK-3.Y.3:
+
+f099d4c netdev: octeon-ethernet: Streamline logic to determine if hardware should calculate L3/L4 checksum.
+	#ETH2
+
+a38e8c8 add Aquantia PHY driver templete
+5a97910 netdev: octeon3-ethernet: Allow cpus to bind to the maximum number of napis per node.
+6a1dbb2 Revert "add Aquantia PHY driver templete"
+c920678 MIPS: OCTEON: Use non-threaded hander for chainging to PCIe WAR interrupts.
+204c065 MIPS: OCTEON: Add CPU identifier constant for CN73XX family.
+c28a487 MIPS: OCTEON: Add probe for CAVIUM_CN73XX processors.
+a256245 MIPS: OCTEON: Update S.E. to 110961
+ad543d0 MIPS: OCTEON: Remove cn78XX dependencies from OCTEON III specific code.
+057af0a watchdog: octeon-wdt: Fix timer rate for all OCTEON III parts.
+898f5ca netdev: octeon3-ethernet: Performance improvements.
+f84a9f7 netdev: octeon3-ethernet: Move PKO MTU workarounds to octeon3-ethernet.c
+3b32bbd netdev: octeon3-ethernet: Cleanup use of boolean variables.
+23cd82a7 netdev: octeon3-ethernet: Add packet interceptor callback.
+dedc91d MIPS: OCTEON: Fix Cache error detection for OCTEON III.
+2416570 MIPS: OCTEON: Update octeon-error-injector for OCTEON III.
+a59699c kvmtool: Use correct constants when calculating memory parameters for guest
+4c37601 MIPS: OCTEON: Inhibit CP0_Compare interrupts when not needed.
+
+ab82f9a netdev: octeon-ethernet: Fix typo in RB tree code.
+	#ETH2
+
+ea0e470 netdev: octeon_mgmt: Use __BITFIELD_FIELD in structure declarations.
+	#ETH2
+	though this is not required for #eth2
+
+757c9e7 MIPS: OCTEON: Update S.E. files.
+c3c6d15 MIPS:OCTEON: Implement irq_cpu_offline callback for CIU3 interrupts.
+b8df6b5 netdev: octeon3-ethernet: Make module reloadable.
+e1f7492 netdev: octeon3-ethernet: Shutdown interfaces correctly.
+ecfd7f5 MiPS: RapidIO: Read some CSRs from cn63xx struct.
+71b44ec MIPS: RapidIO: Read SRIOMAINTX CSRs from cn63xx struct.
+dcd41ba MIPS: OCTEON: Changed verbose info printk to debug printk.
+c2a353e netdev: octeon-bgx: Preliminary support for routing BGX ports to MIX units.
+dccbaee netdev: octeon-mgmt:  Add cn78XX support.
+cbdcc63 MIPS: OCTEON: Fix number of MC in perf_uncore.
+b67c35e netdev: Add driver for Marvell 88X3120 dual 10GBase-T Ethernet phy
+6c7bf53 MIPS: OCTEON: Fix IPI mechanism used by KEXEC.
+351b499 of/platform: Avoid device name collisions.
+1e34a62 MIPS:OCTEON: Added 10G-KR support for cn78xx
+e6a0f75 MIPS: Expand __swp_offset() to carry 32 significant bits of data.
+4e4e4b2 kvmtool/mips: Modify irq code to support MSI
+11c2cfd MIPS: paravirt: Rework irq code to support MSI
+54cfd2b MIPS: KVM/MIPSVZ: Modify irq handling to code to support MSI and ioeventfd
+ee7970a kvmtool: Save datamatch as little endian in {add,del}_event
+124cb14 kvm/eventfd: Treat ioeventfd.datamatch as little endian
+aa2b068 kvmtool: Fix length of ioevent for VIRTIO_PCI_QUEUE_NOTIFY
+35a17e0 kvmtool: Register each guest memory bank as vhost_memory_region
+ec107e9 MIPS: Fix PTE_FILE_MAX_BITS and increase width of __swp_offset for 64-bit kernel.
+83d96c1 MIPS / kvm:  Correct incorrect paths in Makefile.
+296ef79 gpio: gpio-octeon: Add gpio_to_irq() support.
+9c98262 MIPS: OCTEON: Add gpio_to_irq() test to octeon-error-injector.
+2318e0c netdev: octeon3-ethernet: Add message about CN78XX-P1.0 lack of rmmod support.
+ffeef2c netdev: octeon3-ethernet: Grab module reference on CN78XX_PASS1_0.
+008f2dc Merge branch 'OCTEON-SDK-3.Y' of ssh://cagit1.caveonetworks.com/repo/git/linux/linux-octeon-sdk into OCTEON-SDK-3.Y
+a6501de MIPS:OCTEON: Added cvmx_primary_pcie_bus_number PCIe module parameter
+57dc89f MIPS:OCTEON: Sync-up SE files
+426a5b1 MIPS:OCTEON: Initialize cvmx_primary_pcie_bus_number variable properly.
+e2d252f5 MIPS: OCTEON: Fix GPIO interrupt code for CIU3.
+0626bd1 phy/marvell: Add did_interrupt() method for Marvell 88E1240
+2e138bd MIPS: OCTEON: Small fix GPIO interrupt code for CIU3.
+f3970a1 MIPS:OCTEON: Remove FPA_POOLX_THRESH, FPA_AURAX_THRESH
+b047583 netdev: octeon-mgmt:  Add ethtool_ops for cn78XX mode.
+bc4797d MIPS:OCTEON: Disable CVMX_PKI_CLX_ECC_INT[PCAMi_DBE] as per errata
+4b4fec9 netdev: octeon-bgx: Fix race conditions in status polling work.
+97a60e8 netdev: octeon3-ethernet: Move kmem_cache_destroy() to module_exit function.
